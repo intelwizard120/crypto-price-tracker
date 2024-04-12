@@ -1,0 +1,10 @@
+@use '@src/styles/themes' as *;
+
+#home-container {
+  width: 100%;
+  padding: 20px;
+  padding-top: 5px;
+  text-align: center;
+  background-color: var(--background-color);
+  border-width: 0px;
+}

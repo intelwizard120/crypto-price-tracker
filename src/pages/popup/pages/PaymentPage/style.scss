@@ -1,0 +1,64 @@
+#payment-root {
+  overflow-y: hidden;
+}
+#payment-header {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: start;
+  padding: 7px;
+  padding-top: 0px;
+
+  h2 {
+    font-size: 20px;
+    color: var(--color);
+  }
+}
+#payment-content {
+  padding-inline: 10px;
+  height: 500px;
+}
+
+.pro-banner {
+  border-radius: 20px;
+  border-width: 0px;
+  padding: 20px;
+  margin: 10px;
+  background-color: #f0f7fe;
+
+  h2,
+  h3,
+  h6 {
+    margin: 0px;
+  }
+  h2 {
+    font-size: 34px;
+  }
+  h3 {
+    font-size: 30px;
+  }
+  h6 {
+    font-size: 22px;
+  }
+  p {
+    font-size: 14px;
+    line-height: 16px;
+  }
+  .success {
+    color: #00d1b0;
+  }
+  .btn-upgrade {
+    background-color: #00d1b0;
+    padding-inline: 20px;
+    padding-block: 10px;
+    margin: auto;
+
+    &:hover {
+      background-color: #00e1c0;
+    }
+  }
+  .stmt {
+    color: #5989b6;
+    font-size: 15px;
+  }
+}

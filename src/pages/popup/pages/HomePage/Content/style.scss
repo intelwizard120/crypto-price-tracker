@@ -1,0 +1,39 @@
+#content {
+  width: 100%;
+  height: 435px;
+  overflow-x: hidden;
+  border-radius: 15px;
+  background-color: var(--card-background-color);
+  padding: 15px;
+  padding-bottom: 10px;
+
+  .loader_skeleton {
+    color: var(--background-color);
+    background-color: var(--background-color);
+  }
+}
+#btn-refresh {
+  width: 70%;
+  height: 40px;
+  margin: auto;
+}
+
+.banner-restrict {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #22222299;
+  width: 100%;
+  pointer-events: none;
+  height: 100%;
+  p {
+    position: absolute;
+    margin: auto;
+    font-size: 24px;
+    width: 70%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+  }
+}

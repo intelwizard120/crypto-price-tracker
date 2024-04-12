@@ -1,0 +1,34 @@
+#rating-root {
+}
+#rating-header {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: start;
+  padding: 7px;
+  padding-top: 0px;
+
+  h2 {
+    font-size: 20px;
+    color: var(--color);
+  }
+}
+#rating-content {
+  padding-top: 30px;
+  padding-inline: 10px;
+  text-align: center;
+
+  h2 {
+    font-size: 22px;
+    color: var(--color);
+    margin: auto;
+    width: 80%;
+    margin-block: 50px;
+  }
+
+  i {
+    font-size: 30px;
+    color: #ffea03;
+    cursor: pointer;
+  }
+}

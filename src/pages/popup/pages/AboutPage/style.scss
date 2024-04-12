@@ -1,0 +1,42 @@
+#about-root {
+}
+#about-header {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: start;
+  padding: 7px;
+  padding-top: 0px;
+
+  h2 {
+    font-size: 20px;
+    color: var(--color);
+  }
+}
+#about-content {
+  padding-top: 30px;
+  padding-inline: 10px;
+  text-align: center;
+  height: 500px;
+  h2 {
+    color: var(--color);
+    font-size: 16px;
+    margin: auto;
+    margin-block: 40px;
+    width: 80%;
+  }
+
+  div.link {
+    color: var(--color);
+    font-size: 20px;
+    margin: auto;
+    width: 100%;
+    transition: 600ms;
+    margin-top: 120px;
+
+    &:hover {
+      color: #0099ff;
+      cursor: pointer;
+    }
+  }
+}

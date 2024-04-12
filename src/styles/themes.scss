@@ -1,0 +1,29 @@
+@use 'variables' as *;
+
+html[data-theme='light'] {
+  --background-color: #{$white};
+  --color: #{$gray-normal-4};
+
+  --primary-color: #{$gray-normal-4};
+  --secondary-color: #{$white};
+
+  --card-background-color: #{$gray-light-f0};
+  --card-border-color: #{$gray-light-fa};
+
+  --success: #{$success};
+  --danger: #{$danger};
+}
+
+html[data-theme='dark'] {
+  --background-color: #{$gray-dark-19};
+  --color: #{$white};
+
+  --primary-color: #{$white};
+  --secondary-color: #{$gray-dark-19};
+
+  --card-background-color: #{$gray-dark-28};
+  --card-border-color: #{$gray-dark-1c};
+
+  --success: #{$success};
+  --danger: #{$danger};
+}

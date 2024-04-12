@@ -1,0 +1,25 @@
+.row {
+  display: flex;
+  flex-direction: row;
+}
+.row-base {
+  display: flex;
+  align-items: baseline;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+  border-width: 0px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-width: 0px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #444444;
+  border-width: 0px;
+}

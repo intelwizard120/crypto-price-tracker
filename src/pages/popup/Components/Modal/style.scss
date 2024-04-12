@@ -1,0 +1,130 @@
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
+  transition: 600ms;
+
+  .btn-solid {
+    font-size: 14px;
+    padding-block: 8px;
+    padding-inline: 20px;
+  }
+}
+
+/* Modal Content/Box */
+.modal-box {
+  background-color: var(--background-color);
+  border-radius: 20px;
+  padding: 20px;
+  margin: 60px auto;
+  padding-top: 10px;
+  border: 1px solid var(--card-background-color);
+  transition: 600ms;
+  width: 80%; /* Could be more or less, depending on screen size */
+  max-height: 400px;
+  animation: modal-scale 0.5s ease-in-out;
+}
+@keyframes modal-scale {
+  0% {
+    transform: scale(0);
+  }
+  60% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.modal-header {
+  display: flex;
+  height: 35px;
+  font-size: 15px;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color);
+
+  p {
+    font-size: 20px;
+    color: var(--color);
+  }
+  .close {
+    font-size: 26px;
+  }
+}
+.modal-content {
+  padding: 10px 0px;
+  font-size: 17px;
+  color: var(--color);
+  text-align: center;
+
+  button {
+    padding-inline: 15px !important;
+    padding-block: 10px !important;
+  }
+}
+.row-center {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* The Close Button */
+.close {
+  font-size: 26px;
+  color: var(--color);
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.popup-currency {
+  position: absolute;
+  left: 70px;
+  top: 40px;
+  z-index: 100;
+  width: 70%;
+  overflow: auto;
+  max-height: 200px;
+  background-color: var(--card-background-color);
+  border: 1px solid var(--card-border-color);
+}
+.popup-currency-item {
+  height: 30;
+  padding: 5px 10px;
+  display: flex;
+  cursor: pointer;
+  flex-direction: row;
+  align-items: center;
+  background-color: var(--card-background-color);
+
+  &:hover {
+    background-color: #0099ff;
+  }
+  img {
+    width: 20;
+    height: 20;
+    margin-right: 20px;
+  }
+  p {
+    font-size: 13px;
+    color: var(--color);
+  }
+}
+
+.list-container {
+  background-color: var(--card-background-color);
+  border-radius: 20px;
+  padding: 14px;
+}

@@ -1,0 +1,48 @@
+#register-content {
+  text-align: center;
+  padding: 30px 30px;
+  h2 {
+    font-size: 20px;
+    color: var(--color);
+  }
+  a {
+    color: #0099ff;
+    font-size: 18px;
+    margin-top: 40px;
+    cursor: pointer;
+    transition: 600ms;
+    display: block;
+  }
+  a:hover {
+    color: #00aaff;
+  }
+}
+
+#register-form {
+  margin-top: 30px;
+  P {
+    color: var(--color);
+    font-size: 18px;
+    margin-right: 6px;
+  }
+  button {
+    padding-block: 10px;
+    padding-inline: 30px;
+  }
+  .warning {
+    color: #ff4466;
+    font-size: 12px;
+    line-height: 14px;
+    font-style: italic;
+  }
+}
+.input-div {
+  text-align: left;
+  padding-inline: 30px;
+  p {
+    height: 20px;
+  }
+  input {
+    width: 100%;
+  }
+}

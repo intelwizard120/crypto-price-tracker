@@ -1,0 +1,13 @@
+#header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 60px;
+  justify-content: space-between;
+  padding: 20 7px;
+
+  h2 {
+    font-size: 20px;
+    color: var(--color);
+  }
+}
