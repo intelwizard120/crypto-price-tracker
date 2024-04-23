@@ -5,7 +5,9 @@ import { useDispatch } from 'react-redux';
 import { setCurrentPage, setCurrentPlan } from '@root/src/store/actions';
 import ExtPay from 'extpay';
 import './style.scss';
-import { PLAN_TYPE } from '@root/src/shared/utils/consts';
+import { PLAN_TYPE, PROMO_CODE } from '@root/src/shared/utils/consts';
+import { PromoCodeBox } from '../../Components/Modal/PromoCodeBox';
+import { message } from 'react-message-popup';
 
 const extpay = ExtPay('coinwatch---crypto-price-tracker');
 extpay.startBackground();
@@ -23,6 +25,7 @@ extpay
 
 export const PaymentPage = () => {
   const dispatch = useDispatch();
+  const [promoModal, setPromoModal] = useState(false);
   const options = {
     // passing the client secret obtained from the server
     clientSecret: '{{CLIENT_SECRET}}',
@@ -33,8 +36,28 @@ export const PaymentPage = () => {
   };
 
   const payForUpgrade = () => {
-    extpay.openPaymentPage();
-    dispatch(setCurrentPlan(PLAN_TYPE.PRO));
+    extpay
+      .openPaymentPage()
+      .then(res => {
+        dispatch(setCurrentPlan(PLAN_TYPE.PRO));
+        message.success('Successfully upgraded!', 3000);
+      })
+      .catch(err => {
+        message.error('Failed to upgrade to pro!', 3000);
+      });
+  };
+
+  const usePromoCode = () => {
+    setPromoModal(true);
+  };
+
+  const checkPromoCode = code => {
+    if (code == PROMO_CODE) {
+      dispatch(setCurrentPlan(PLAN_TYPE.PRO));
+      message.success('Successfully upgraded!', 3000);
+    } else {
+      message.error('Invalide Code!', 3000);
+    }
   };
 
   return (
@@ -58,7 +81,7 @@ export const PaymentPage = () => {
             <i className="fa-solid fa-circle-check success"></i>No daily limit to price tracker
           </p>
           <p>
-            <i className="fa-solid fa-circle-check success"></i>Allow alerts for prices
+            <i className="fa-solid fa-circle-check success"></i>No advertisements
           </p>
           <p>
             <i className="fa-solid fa-circle-check success"></i>Access to NFT tracker
@@ -69,8 +92,13 @@ export const PaymentPage = () => {
           <button className="solid btn-upgrade" onClick={payForUpgrade}>
             Upgrade to Pro
           </button>
+          <button className="solid btn-promocode" onClick={usePromoCode}>
+            Have a promo code?
+          </button>
         </div>
       </div>
+
+      {promoModal && <PromoCodeBox show={promoModal} onClose={() => setPromoModal(false)} onSetCode={checkPromoCode} />}
     </div>
   );
 };

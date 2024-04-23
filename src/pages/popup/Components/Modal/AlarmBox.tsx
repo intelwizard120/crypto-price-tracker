@@ -20,14 +20,20 @@ export const AlarmBox: React.FC<modalProps> = ({ show, onClose, selectedCurrency
   const inputRef = useRef(null);
   const alarm = useSelector((state: AppState) => state.alarmList);
 
+  const getPriceForRate = rate => {
+    return (1 + rate) * selectedCurrency?.usd_price;
+  };
+
   const getPriceValue = rate => {
-    const doubleValue = (1 + rate) * selectedCurrency?.usd_price;
-    return parseFloat(doubleValue.toFixed(2));
+    return parseFloat(getPriceForRate(rate).toFixed(2));
+  };
+
+  const getRateForPrice = value => {
+    return (value - selectedCurrency.usd_price) / selectedCurrency.usd_price;
   };
 
   const onPriceValueChange = value => {
-    const newRate = (value - selectedCurrency.usd_price) / selectedCurrency.usd_price;
-    setRateValue(newRate);
+    setRateValue(getRateForPrice(value));
   };
 
   const onRateChange = value => {
@@ -44,11 +50,17 @@ export const AlarmBox: React.FC<modalProps> = ({ show, onClose, selectedCurrency
 
   const getAlarmValue = () => {
     const name = selectedCurrency.name;
-    return alarm[name] ? alarm[name] : selectedCurrency?.usd_price;
+    return alarm[name] ? alarm[name]?.value : selectedCurrency?.usd_price;
+  };
+
+  const confirm = () => {
+    if (rateValue > 0) setAlarmValue({ type: 'up', value: getPriceValue(rateValue) });
+    else setAlarmValue({ type: 'down', value: getPriceValue(rateValue) });
   };
 
   useEffect(() => {
-    setRateValue(0);
+    setRateValue(getRateForPrice(getAlarmValue()));
+    inputRef.current.value = getAlarmValue();
   }, []);
 
   return (
@@ -90,10 +102,7 @@ export const AlarmBox: React.FC<modalProps> = ({ show, onClose, selectedCurrency
                   Remove
                 </button>
               }
-              <button
-                className="solid primary"
-                style={{ marginLeft: 20 }}
-                onClick={() => setAlarmValue(getPriceValue(rateValue))}>
+              <button className="solid primary" style={{ marginLeft: 20 }} onClick={() => confirm()}>
                 OK
               </button>
             </div>

@@ -21,3 +21,6 @@ export const CHAINS = {
     bsc: {name:'bsc', id:'0x38'},
     gnosis: {name:'gnosis', id:'0x64'}
 }
+
+
+export const PROMO_CODE = 'CW-AUF-512';

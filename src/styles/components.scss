@@ -194,3 +194,12 @@ select:focus {
 .bg-fall {
   background-color: var(--danger);
 }
+
+.transaction-item {
+  padding-top: 33px;
+  height: 70px;
+  p {
+    margin: 0px;
+    padding: 0px;
+  }
+}

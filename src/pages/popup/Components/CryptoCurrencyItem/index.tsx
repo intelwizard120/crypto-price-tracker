@@ -41,7 +41,7 @@ export const CryptoCurrencyItem: React.FC<currencyItemProps> = ({
             {getDisplayedPrice(usd_price)}
           </p>
           <p className={usd_price_1hr_percent_change > 0 ? 'rise' : 'fall'}>
-            {(usd_price_1hr_percent_change > 0 ? '+' : '') + (usd_price_1hr_percent_change * 100).toFixed(2) + '%'}
+            {(usd_price_1hr_percent_change > 0 ? '+' : '') + (usd_price_1hr_percent_change * 1).toFixed(2) + '%'}
           </p>
         </>
       ) : (

@@ -81,7 +81,7 @@ const Popup = () => {
   const currentPage = useSelector((state: AppState) => state.currentPage);
 
   useEffect(() => {
-    //if (!account) dispatch(setCurrentPage(NUM_LOGIN_PAGE));
+    if (!account) dispatch(setCurrentPage(NUM_LOGIN_PAGE));
   }, []);
   return (
     <div id="root" className={theme == 'dark' ? 'dark' : ''}>

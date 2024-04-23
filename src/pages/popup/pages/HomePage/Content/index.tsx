@@ -16,6 +16,8 @@ import { PopupAlert } from '../../../Components/Modal/PopupAlert';
 import { setAlarmList, setCurrencyList, setFetchHistory, setFetchList } from '@root/src/store/actions';
 import { formatDate } from '@root/src/shared/utils';
 import Skeleton from 'react-loading-skeleton';
+import { ALARM } from '@root/src/store/types';
+import { cursorTo } from 'readline';
 
 interface contentProps {
   editMode: boolean;
@@ -26,12 +28,11 @@ const override: CSSProperties = {
 };
 
 export const Content: React.FC<contentProps> = ({ editMode, onSave }) => {
-  const [theme, setTheme] = useStorage('theme', 'light');
   const alarm = useSelector((state: AppState) => state.alarmList);
   const currencyList = useSelector((state: AppState) => state.currencyList);
   const fetchList = useSelector((state: AppState) => state.fetchList);
   const [order, setOrder, updatePosition, updateOrder] = usePositionReorder([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [tick, setTick] = useState(0);
   const fetchHistory = useSelector((state: AppState) => state.fetchHistory);
   const [addModal, setAddModal] = useState(false);
@@ -59,12 +60,10 @@ export const Content: React.FC<contentProps> = ({ editMode, onSave }) => {
   }, [fetchHistory]);
 
   const fetchPriceData = () => {
-    setLoading(true);
     getCurrencyPrices(fetchList)
       .then(res => {
         //updateFetchHistory();
         dispatch(setCurrencyList(res));
-
         setOrder(res);
         setLoading(false);
       })
@@ -74,13 +73,19 @@ export const Content: React.FC<contentProps> = ({ editMode, onSave }) => {
   };
 
   const priceNotifys = useMemo(() => {
-    // const notifies = currencyList.filter(currency => {
-    //   const threshold = alarm[currency.name];
-    //   if (currency.usd_price > 100) return currency;
-    // });
-    // if (notifies.length) setAlertModal(true);
-    // return [];
-    return [];
+    const notifies = currencyList.filter(currency => {
+      const curAlarm: ALARM = alarm[currency.name];
+      if (!curAlarm) return false;
+
+      return (
+        (curAlarm.type == 'up' && currency.usd_price > curAlarm.value) ||
+        (curAlarm.type == 'down' && currency.usd_price <= curAlarm.value)
+      );
+    });
+    if (notifies.length) setAlertModal(true);
+    else setAlertModal(false);
+
+    return notifies;
   }, [currencyList]);
 
   useEffect(() => {

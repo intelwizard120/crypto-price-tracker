@@ -1,7 +1,6 @@
 import React, { Component, useState } from 'react';
 import './style.scss';
 import { formatNumber } from '@root/src/shared/utils';
-import { convertToCurrency, getCurrencyUnit } from '@root/src/shared/utils/currency';
 import { useSelector } from 'react-redux';
 import { AppState } from '@root/src/store/reducers';
 
@@ -41,7 +40,7 @@ export const CryptoWalletItem: React.FC<currencyItemProps> = ({
       </div>
       {!editMode ? (
         <>
-          <p>{'$' + formatNumber(balance)}</p>
+          <p>{balance ? formatNumber(balance) : ''}</p>
         </>
       ) : (
         <div>

@@ -37,10 +37,14 @@ export const WalletPage: React.FC = () => {
   const [transactionModal, setTransactionModal] = useState(false);
   const dispatch = useDispatch();
 
+  const getMyWalletList = () => {
+    return walletList.filter(wallet => wallet.owner == walletOwner);
+  };
+
   const fetchWalletBalance = () => {
     getWalletBalance(
-      chain,
-      walletList.map(item => item.address),
+      chain.id,
+      getMyWalletList().map(item => item.address),
     )
       .then(res => {
         setBalanceData(res);
@@ -51,7 +55,7 @@ export const WalletPage: React.FC = () => {
   };
 
   const fetchWalletNFT = address => {
-    getWalletNFTs(chain, address)
+    getWalletNFTs(chain.id, address)
       .then(res => {
         setSelectedWalletData(res);
       })
@@ -61,7 +65,7 @@ export const WalletPage: React.FC = () => {
   };
 
   const fetchWalletTransactions = address => {
-    getWalletTransactions(chain, address)
+    getWalletTransactions(chain.id, address)
       .then(res => {
         setSelectedWalletData(res);
       })
@@ -76,7 +80,7 @@ export const WalletPage: React.FC = () => {
     return () => {
       //clearInterval(tId);
     };
-  }, []);
+  }, [walletList, chain]);
 
   useEffect(() => {
     setOrder(walletList.filter(wallet => wallet.owner && wallet.owner == walletOwner));
@@ -116,16 +120,17 @@ export const WalletPage: React.FC = () => {
 
   const selectWallet = index => {
     setSelectedIndex(index);
-    setSelectedWallet(walletList[index]);
+    const curWallet = getMyWalletList()[index];
+    setSelectedWallet(curWallet);
     if (walletTracker == WALLET_TRACKER_TYPE.BALANCE) {
       setEditModal(true);
     }
     if (walletTracker == WALLET_TRACKER_TYPE.NFT) {
       setNFTModal(true);
-      fetchWalletNFT(walletList[index].address);
+      fetchWalletNFT(curWallet.address);
     }
     if (walletTracker == WALLET_TRACKER_TYPE.TRANSACTION) {
-      fetchWalletTransactions(walletList[index].address);
+      fetchWalletTransactions(curWallet.address);
       setTransactionModal(true);
     }
   };
@@ -145,10 +150,10 @@ export const WalletPage: React.FC = () => {
         </div>
 
         <div>
-          <select>
+          <select onChange={e => setChain(CHAINS[e.target.value])}>
             {Object.keys(CHAINS).map(name => {
               return (
-                <option value={name} selected={chain.name == name} onClick={() => setChain(CHAINS[name])}>
+                <option value={name} selected={chain.name == name}>
                   {name}
                 </option>
               );
@@ -171,7 +176,7 @@ export const WalletPage: React.FC = () => {
               !editMode ? (
                 <CryptoWalletItem
                   {...item}
-                  balance={i < balanceData.length ? balanceData[i] : 0}
+                  balance={i < balanceData.length ? balanceData[i] : ''}
                   editMode={editMode}
                   onClick={() => selectWallet(i)}
                 />
@@ -219,6 +224,8 @@ export const WalletPage: React.FC = () => {
       {transactionModal && (
         <TransactionWalletBox
           show={transactionModal}
+          chain={chain.name}
+          address={selectedWallet.address}
           name={selectedWallet.name}
           data={selectedWalletData}
           onClose={() => setTransactionModal(false)}

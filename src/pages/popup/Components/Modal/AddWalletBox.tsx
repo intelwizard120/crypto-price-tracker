@@ -5,6 +5,8 @@ import { AppState } from '@root/src/store/reducers';
 import { setWalletList } from '@root/src/store/actions';
 import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react';
 import { useWeb3Modal, useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react';
+import { message } from 'react-message-popup';
+import { WALLET_OWNER } from '@root/src/shared/utils/consts';
 
 const projectId = '6fadb3cd60a1a14ff379f875a0f3e917';
 
@@ -58,12 +60,17 @@ export const AddWalletBox: React.FC<modalProps> = ({ show, onClose }) => {
   const dispatch = useDispatch();
   const { address, chainId, isConnected } = useWeb3ModalAccount();
 
-  const checkDuplication = name => {
-    return !walletList.find(wallet => wallet.name == name);
+  const checkDuplication = (name, inputAddress) => {
+    return (
+      !walletList.find(wallet => wallet.name == name) && !walletList.find(wallet => wallet.address == inputAddress)
+    );
   };
   const addWallet = () => {
-    if (checkDuplication(name))
-      dispatch(setWalletList([...walletList, { name, address: inputAddress, owner: walletOwner }]));
+    if (!checkDuplication(name, inputAddress)) {
+      message.error('This wallet already exists!', 2000);
+      return;
+    }
+    dispatch(setWalletList([...walletList, { name, address: inputAddress, owner: walletOwner }]));
     onClose();
   };
 
@@ -102,9 +109,12 @@ export const AddWalletBox: React.FC<modalProps> = ({ show, onClose }) => {
               style={{ marginLeft: 10 }}></input>
           </div>
           <div className="row-center" style={{ marginTop: 20 }}>
-            <button className="solid success" style={{ paddingInline: 20, paddingBlock: 6 }} onClick={() => open()}>
-              Connect
-            </button>
+            {walletOwner == WALLET_OWNER.MIME && (
+              <button className="solid success" style={{ paddingInline: 20, paddingBlock: 6 }} onClick={() => open()}>
+                Connect
+              </button>
+            )}
+
             <button
               className="solid primary"
               style={{ paddingInline: 20, paddingBlock: 6, marginLeft: 20 }}

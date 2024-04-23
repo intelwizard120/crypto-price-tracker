@@ -14,7 +14,7 @@ const manifest = {
    */
   name: '__MSG_extensionName__',
   version: packageJson.version,
-  description: 'CryptoCurrency Price Tracker',
+  description: 'Crypto Price & Portfolio Tracker',
   permissions: ['storage', 'sidePanel', 'tabs'],
   side_panel: {
     default_path: 'src/pages/sidepanel/index.html',

@@ -10,6 +10,7 @@ import { AppState } from '@root/src/store/reducers';
 export const WalletTrackerPage = () => {
   const dispatch = useDispatch();
   const walletOwner = useSelector((state: AppState) => state.walletOwner);
+  const walletTracker = useSelector((state: AppState) => state.walletTracker);
 
   const navigatePage = page => {
     dispatch(setCurrentPage(page));
@@ -31,13 +32,17 @@ export const WalletTrackerPage = () => {
       <div id="setting-content">
         <SettingMenuItem
           icon={'fa-dollar-sign'}
-          label="Portfolio Tracker"
+          label={walletOwner == WALLET_OWNER.MIME ? 'Portfolio Tracker' : 'Track Others Portfolios'}
           action={() => showWalletList(WALLET_TRACKER_TYPE.BALANCE)}
         />
-        <SettingMenuItem icon={'fa-coins'} label="NFT Tracker" action={() => showWalletList(WALLET_TRACKER_TYPE.NFT)} />
+        <SettingMenuItem
+          icon={'fa-coins'}
+          label={walletOwner == WALLET_OWNER.MIME ? 'NFT Tracker' : 'Track Others NFTs'}
+          action={() => showWalletList(WALLET_TRACKER_TYPE.NFT)}
+        />
         <SettingMenuItem
           icon={'fa-money-bill-transfer'}
-          label="Transaction Tracker"
+          label={walletOwner == WALLET_OWNER.MIME ? 'Transaction Tracker' : 'Track Others Transactions'}
           action={() => showWalletList(WALLET_TRACKER_TYPE.TRANSACTION)}
         />
       </div>

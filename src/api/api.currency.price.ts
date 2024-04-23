@@ -25,6 +25,24 @@ export const getCurrencyPrices = async (fetchList: string[]): Promise<any> => {
   }
 }
 
+export const getOneCurrencyPrice = async (currencyName:string): Promise<any> => {
+  try {
+    if(!store.getState().moraliLoaded) {
+      await Moralis.start({
+        apiKey:
+            MORALIS_API_KEY   
+      });
+    }
+    store.dispatch(setMoraliLoaded(true));
+    const response = await Moralis.EvmApi.marketData.getTopCryptoCurrenciesByMarketCap();
+    //const response = FAKE_PRICE_DATA;
+    return Promise.resolve(response.raw.find(currency => currency.name == currencyName));
+
+  } catch (e) {
+    console.error(e);
+    return Promise.reject(e);
+  }
+}
 
 export const getCurrencyPricesByFilter = async (keyword: string): Promise<any> => {
   try {

@@ -15,7 +15,7 @@ export const getWalletNFTs = async (chain, address): Promise<any> => {
     store.dispatch(setMoraliLoaded(true));
     //const response = FAKE_WALLET_NFT_DATA;
     const response = await Moralis.EvmApi.nft.getWalletNFTs({
-    "chain": "0x1",
+    "chain": chain,
     "format": "decimal",
     "mediaItems": false,
     "address": address

@@ -57,6 +57,18 @@
       background-color: #00e1c0;
     }
   }
+  .btn-promocode {
+    background-color: #ffba35;
+    padding-inline: 20px;
+    padding-block: 10px;
+    margin: auto;
+
+    &:hover {
+      background-color: #ffb62b;
+    }
+    margin-block: 10px;
+  }
+
   .stmt {
     color: #5989b6;
     font-size: 15px;

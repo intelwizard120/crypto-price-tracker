@@ -16,7 +16,7 @@ export const getWalletTransactions = async (chain, address): Promise<any> => {
     store.dispatch(setMoraliLoaded(true));
     //const response = FAKE_WALLET_TRANSACTION_DATA;
     const response = await Moralis.EvmApi.transaction.getWalletTransactions({
-    "chain": "0x1",
+    "chain": chain,
     "order": "DESC",
     "address": address
   });
