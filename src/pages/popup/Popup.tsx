@@ -85,7 +85,9 @@ const Popup = () => {
   }, []);
   return (
     <div id="root" className={theme == 'dark' ? 'dark' : ''}>
-      {MainPages.map(page => page.index == currentPage && page.Component)}
+      {account
+        ? MainPages.map(page => page.index == currentPage && page.Component)
+        : AuthPages.map(page => page.index == currentPage && page.Component)}
     </div>
   );
 };

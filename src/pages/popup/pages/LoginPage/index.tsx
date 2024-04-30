@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { SettingMenuItem } from '../../Components/SettingMenu';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAccount, setCurrentPage } from '@root/src/store/actions';
-import { NUM_ABOUT_PAGE, NUM_EDIT_LIST_PAGE, NUM_HOME_PAGE, NUM_REGISTER_PAGE, NUM_UPGRADE_PAGE } from '../consts';
+import { NUM_ABOUT_PAGE, NUM_HOME_PAGE, NUM_REGISTER_PAGE } from '../consts';
 import './style.scss';
 import title from '@src/assets/img/title.png';
 import { useStorage } from '@root/src/shared/hooks/useStorage';
 import { AppState } from '@root/src/store/reducers';
+import message from 'react-message-popup';
+import { AuthApi } from '@root/src/api/api.auth';
 
 export const LoginPage = () => {
   const dispatch = useDispatch();
@@ -22,18 +24,18 @@ export const LoginPage = () => {
 
   const validators = [() => email.length > 0, () => password.length > 0];
   const handleAuth = () => {
-    dispatch(setAccount({ email, password }));
-    navigatePage(NUM_HOME_PAGE);
-    return;
-    if (validators.every(validator => validator())) {
-      if (auth.email == email && auth.password == password) {
-        navigatePage(NUM_HOME_PAGE);
-      } else if (auth.email != email) {
-        setError({ email: 'Email does not exist!' });
-      } else if (auth.password != password) {
-        setError({ password: 'Password incorrect!' });
-      }
+    if (!validators.every(validator => validator())) {
+      message.warning('Input correctly!', 3000);
+      return;
     }
+    AuthApi.signIn({ email, password })
+      .then(res => {
+        dispatch(setAccount({ email, password }));
+        navigatePage(NUM_HOME_PAGE);
+      })
+      .catch(err => {
+        message.error('Failed to log in!', 3000);
+      });
   };
 
   return (
